@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Eqilibrium_Index {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int arr[] = {3,-1,2,-1,1,2,1};
+        int N = arr.length;
+        int pf[] = new int[arr.length];
+        
+        // create prefix array
+        pf[0] = arr[0];
+        
+        for(int i=1; i<N; i++){
+            pf[i] = arr[i] + pf[i-1];
+        }
+        
+        // create a counter to count Equilibrium index [where elements of left and right sum elements are same ]
+        
+        int count = 0;
+        int leftSum, rightSum = 0;
+        for(int i=0; i<pf.length; i++){
+            if(i == 0){
+                leftSum = 0;
+            }else{
+                leftSum = pf[i-1];
+            }
+            
+            rightSum = pf[N-1] - pf[i];
+            
+            if(leftSum == rightSum){
+                count++;
+            }
+        }
+        System.out.println("Total Equilibrium Index = "+count);
+    }
+}
+
+//Index     =   0 1 2 3 4 5 6 7
+//arr[ ]    =  [3 -1 2 -1 1 2 1 ]
+// Left Sum =  [0  3 2  4 3 4 6 ]
+// Right Sum = [4  5 3  4 3 1 0 ] 
+// Here at 3rd and 4th index are sum of elements are same  = thats why the count is 2 .
+
+
